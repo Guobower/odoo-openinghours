@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="opening_hour_custom_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/opening_hour/static/src/js/opening_hour.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

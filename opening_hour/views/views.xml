@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- <menuitem id="main_opening_hour" name="Opening Hour"/> -->
+    <record id="opening_hour_list_view" model="ir.ui.view">
+      <field name="name">opening_hour.opening_hour.tree</field>
+      <field name="model">opening_hour.opening_hour</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <tree string="Loan Orders">
+          <field name="name"/>
+          <field name="day"/>
+          <field name="opening_hour" widget="float_time"/>
+          <field name="closing_hour" widget="float_time"/>
+        </tree>
+      </field>
+    </record>
+    <record id="opening_hour_form" model="ir.ui.view">
+      <field name="name">opening_hour.opening_hour.form</field>
+      <field name="model">opening_hour.opening_hour</field>
+      <field name="arch" type="xml">
+        <form string="Sales Order" class="o_sale_order">
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="day"/>
+                <field attrs="{'invisible':[('day','!=','date')]}" name="date"/>
+              </group>
+              <group>
+                <field name="opening_hour" widget="float_time"/>
+                <field name="closing_hour" widget="float_time"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <menuitem id="opening_hour" name="Opening Hour" parent="base.menu_administration"/>
+    <record model="ir.actions.act_window" id="opening_hour_action">
+      <field name="name">Opening Hour</field>
+      <field name="res_model">opening_hour.opening_hour</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="opening_hour_list_view"/>
+      <field name="target">current</field>
+    </record>
+    <menuitem id="opening_hour_action_menu" name="Opening Hour" parent="opening_hour" action="opening_hour_action"/>
+
+    <!-- <template id="listing"> -->
+    <!--   <ul> -->
+    <!--     <li t-foreach="objects" t-as="object"> -->
+    <!--       <a t-attf-href="#{ root }/objects/#{ object.id }"> -->
+    <!--         <t t-esc="object.display_name"/> -->
+    <!--       </a> -->
+    <!--     </li> -->
+    <!--   </ul> -->
+    <!-- </template> -->
+    <!-- <template id="object"> -->
+    <!--   <h1><t t-esc="object.display_name"/></h1> -->
+    <!--   <dl> -->
+    <!--     <t t-foreach="object._fields" t-as="field"> -->
+    <!--       <dt><t t-esc="field"/></dt> -->
+    <!--       <dd><t t-esc="object[field]"/></dd> -->
+    <!--     </t> -->
+    <!--   </dl> -->
+    <!-- </template> -->
+  </data>
+</odoo>
