@@ -1,36 +1,24 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "opening_hour",
+    'name': "Opening Hour",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        This module is for configuring and create bussiness hour event on calendar""",
 
     'description': """
-        Long description of module's purpose
+        This module is for configuring and create bussiness hour event on calendar
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Heru Prasetyo Utomo",
+    'website': "https://hprasetyou.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'category': 'calendar',
     'version': '0.1',
-
-    # any module necessary for this one to work correctly
     'depends': ['base','calendar'],
-
-    # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'data/cron.xml'
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
     ],
 }
