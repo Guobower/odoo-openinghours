@@ -7,7 +7,7 @@
       <field name="model">opening_hour.opening_hour</field>
       <field name="priority">1</field>
       <field name="arch" type="xml">
-        <tree string="Loan Orders">
+        <tree string="Bussiness Hours">
           <field name="name"/>
           <field name="day"/>
           <field name="opening_hour" widget="float_time"/>
@@ -29,7 +29,6 @@
             <group>
               <group>
                 <field name="day"/>
-                <field attrs="{'invisible':[('day','!=','date')]}" name="date"/>
               </group>
               <group>
                 <field name="opening_hour" widget="float_time"/>
