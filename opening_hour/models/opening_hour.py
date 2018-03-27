@@ -7,7 +7,7 @@ class OpeningHour(models.Model):
     _name = 'opening_hour.opening_hour'
 
     name = fields.Char()
-    day = fields.Selection([ ('date', 'Date Selection'),
+    day = fields.Selection([
     ('sun', 'Sunday'),
     ('mon', 'Monday'),
     ('tue', 'Tuesday'),
