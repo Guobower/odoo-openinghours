@@ -1,16 +1,16 @@
 <odoo>
   <data>
-    <record id="ir_cron_module_get_active_sr" model="ir.cron">
-        <field name="name">Set Opening hour</field>
-        <field eval="True" name="set_opening_hour" />
-        <field name="interval_number">1</field>
-        <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
-        <field eval="False" name="doall" />
-        <field eval="'opening_hour.opening_hour'" name="model" />
-        <field eval="'set_opening_hour'" name="function" />
-        <field eval="'()'" name="args" />
-        <field name="priority">1000</field>
-</record>
+    <record id="cron_call_opening_hour" model="ir.cron">
+      <field name="name">Set Opening hour</field>
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:01')" />
+      <field name="numbercall">-1</field>
+      <field eval="False" name="doall"/>
+      <field name="model_id" ref="model_opening_hour_opening_hour"/>
+      <field name="state">code</field>
+      <field name="code">model.set_opening_hour()</field>
+      <field name="priority">1000</field>
+    </record>
   </data>
 </odoo>

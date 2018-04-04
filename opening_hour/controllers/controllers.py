@@ -16,7 +16,6 @@ class OpeningHour(http.Controller):
         o = []
         to_zone = tz.tzlocal()
         user_tz = request.env.user.tz or pytz.utc
-        print self.utc_time(datetime.datetime.now().strftime("%Y-%m-%d 00:00:01"))
         for b_hour in b_hours:
             o.append({
             'from':self.local_time(b_hour.start).strftime("%H:%M:%S"),

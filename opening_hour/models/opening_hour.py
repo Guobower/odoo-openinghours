@@ -28,7 +28,7 @@ class OpeningHour(models.Model):
 
         return super(OpeningHour, self).create(values)
 
-    @api.multi
+    @api.model
     def set_opening_hour(self):
         event = 'Bussiness is open'
         calendar = self.env['calendar.event']
