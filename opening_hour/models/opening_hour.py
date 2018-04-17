@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, exceptions, _
 import datetime,pytz
+from time import gmtime, strftime
 
 class OpeningHour(models.Model):
     _name = 'opening_hour.opening_hour'
@@ -20,12 +21,13 @@ class OpeningHour(models.Model):
 
     @api.model
     def create(self, values):
-        if values['day'] != 'date':
-            bussiness_times = self.env['opening_hour.opening_hour'].search([('day','=',values['day'])])
-            for bussiness_time in bussiness_times:
-                if bussiness_time.closing_hour > values['opening_hour']:
-                    raise exceptions.ValidationError(_("Opening hour must be bigger than closing hour"))
-
+        print("================================")
+        print(strftime("%Z", gmtime()))
+        print("================================")
+        bussiness_times = self.env['opening_hour.opening_hour'].search([('day','=',values['day'])])
+        for bussiness_time in bussiness_times:
+            if bussiness_time.closing_hour > values['opening_hour']:
+                raise exceptions.ValidationError(_("Opening hour must be bigger than closing hour"))
         return super(OpeningHour, self).create(values)
 
     @api.model
