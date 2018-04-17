@@ -65,13 +65,18 @@ class OpeningHour(models.Model):
             mnt = 59
         if mnt < 10:
             mnt = '0'+str(mnt)
-        local = pytz.timezone ("Asia/Jakarta")
+        local = pytz.timezone (self.get_tz())
         o_dt = '%s %s:%s:00' % (curdate,tm,mnt)
         naive = datetime.datetime.strptime (o_dt, "%Y-%m-%d %H:%M:%S")
         local_dt = local.localize(naive, is_dst=None)
         utc_dt = local_dt.astimezone (pytz.utc)
         return utc_dt.strftime("%Y-%m-%d %H:%M:%S")
 
+    def get_tz(self):
+        user_pool = request.env.get('res.users')
+        user = user_pool.browse(SUPERUSER_ID)
+        tz = pytz.timezone(user.partner_id.tz) or pytz.utc
+        return str(tz)
 class CalendarEvent(models.Model):
     _inherit = 'calendar.event'
 

@@ -3,6 +3,7 @@ from odoo import http
 from odoo.http import request
 import datetime,pytz,time
 import json
+from odoo import SUPERUSER_ID
 from dateutil import tz
 class OpeningHour(http.Controller):
     @http.route('/opening_hour/opening_hour/', type='http', auth='public')
@@ -14,8 +15,7 @@ class OpeningHour(http.Controller):
         ('start','<',self.utc_time(datetime.datetime.now().strftime("%Y-%m-%d 23:59:59")).strftime("%Y-%m-%d %H:%M:%S"))
         ])
         o = []
-        to_zone = tz.tzlocal()
-        user_tz = request.env.user.tz or pytz.utc
+
         for b_hour in b_hours:
             o.append({
             'from':self.local_time(b_hour.start).strftime("%H:%M:%S"),
@@ -24,11 +24,17 @@ class OpeningHour(http.Controller):
         return json.dumps(o)
 
     def utc_time(self,i_dt):
-        local = pytz.timezone("Asia/Jakarta")
+        local = pytz.timezone(self.get_tz())
         naive = datetime.datetime.strptime(i_dt, "%Y-%m-%d %H:%M:%S")
         return local.localize(naive, is_dst=None).astimezone(pytz.utc)
 
     def local_time(self,i_dt):
-        local = pytz.timezone ("Asia/Jakarta")
+        local = pytz.timezone(self.get_tz())
         naive = datetime.datetime.strptime (i_dt, "%Y-%m-%d %H:%M:%S")
         return pytz.utc.localize(naive, is_dst=None).astimezone(local)
+
+    def get_tz(self):
+        user_pool = request.env.get('res.users')
+        user = user_pool.browse(SUPERUSER_ID)
+        tz = pytz.timezone(user.partner_id.tz) or pytz.utc
+        return str(tz)
